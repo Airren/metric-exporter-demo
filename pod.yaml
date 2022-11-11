@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: metrics-exporter-demo
+  labels:
+    name: metrics-exporter-demo
+spec:
+  containers:
+    - name: exporter
+      image: metrics-exporter-demo
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      ports:
+        - containerPort: 8080
