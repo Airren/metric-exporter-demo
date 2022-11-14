@@ -38,13 +38,22 @@ func main() {
 				opsQueued.WithLabelValues("delete").Inc()
 			}
 			i++
-			time.Sleep(time.Second * 1)
+			time.Sleep(time.Second * 10)
 		}
 
 	}()
 
 	// Expose /metrics HTTP endpoint using the created custom registry.
 	http.Handle("/metrics", promhttp.HandlerFor(reg, promhttp.HandlerOpts{Registry: reg}))
+	http.HandleFunc("/ping", handlerPing)
 	log.Fatal(http.ListenAndServe(*addr, nil))
 	return
+}
+
+func handlerPing(w http.ResponseWriter, r *http.Request) {
+	_, err := w.Write([]byte("pong"))
+	if err != nil {
+		return
+	}
+	log.Println(time.Now(), r.Method, r.RequestURI, r.UserAgent(), "service healthy check!")
 }
