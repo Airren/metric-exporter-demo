@@ -7,4 +7,4 @@ RUN go build -o ./bin/exporter main.go
 
 FROM alpine
 COPY --from=builder /metric-exporter-demo/bin/exporter /metric-exporter
-ENTRYPOINT bash -c "/metric-exporter"
+ENTRYPOINT "/metric-exporter"

@@ -53,6 +53,7 @@ func main() {
 		}
 
 	}()
+	log.Println("Service starting...")
 
 	// Expose /metrics HTTP endpoint using the created custom registry.
 	http.Handle("/metrics", promhttp.HandlerFor(reg, promhttp.HandlerOpts{Registry: reg}))
