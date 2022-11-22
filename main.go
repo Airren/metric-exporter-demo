@@ -89,9 +89,10 @@ func handleJob(w http.ResponseWriter, r *http.Request) {
 	span.SetAttributes(attribute.Key("bar-key").String("bar-value"))
 	defer span.End()
 	for i := 0; i < 10; i++ {
-		_, iSpan := tr.Start(ctx, fmt.Sprintf("Sample-%d", i))
+		c, iSpan := tr.Start(ctx, fmt.Sprintf("Sample-%d", i))
 		log.Printf("Doing really hard work (%d / 10)\n", i+1)
 		<-time.After(time.Millisecond * 200)
 		iSpan.End()
+		ctx = c
 	}
 }
