@@ -44,7 +44,7 @@ func main() {
 
 	_, err := telemetry.InitProvider()
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	// Mock a QPS
@@ -61,6 +61,7 @@ func main() {
 
 	// Expose /metrics HTTP endpoint using the created custom registry.
 	http.Handle("/metrics", promhttp.HandlerFor(reg, promhttp.HandlerOpts{Registry: reg}))
+	http.Handle("/go-metrics", promhttp.Handler())
 	http.HandleFunc("/ping", handlerPing)
 	http.HandleFunc("/job", handleJob)
 	log.Fatal(http.ListenAndServe(*addr, nil))

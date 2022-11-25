@@ -20,22 +20,23 @@ spec:
       ports:
         - containerPort: 8080
           name: http
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: metric-exporter-demo
-# #  namespace: metric-test
-#   labels:
-#     app: metric-exporter-demo
-# spec:
-#   selector:
-#     app: metric-exporter-demo
-#   ports:
-#     - port: 8080
-#       targetPort: 8080
-#       name: http
-# 
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: metric-exporter-demo
+#  namespace: metric-test
+  labels:
+    app: metric-exporter-demo
+spec:
+  selector:
+    app: metric-exporter-demo
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: http
+
 # ---
 # apiVersion: monitoring.coreos.com/v1
 # kind: ServiceMonitor
